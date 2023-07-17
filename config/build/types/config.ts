@@ -1,3 +1,5 @@
+// ФАЙЛ ТИПИЗАЦИИ И ОПЦИЙ ВЕБПАКА
+
 export type BuildMode = 'development' | 'production'
 
 export interface BuildPath {
@@ -5,6 +7,12 @@ export interface BuildPath {
     // путь до папки со сборкой
     build: string
     html: string
+}
+
+// для переменных окружения
+export interface BuildEnv {
+    mode: BuildMode
+    port: number
 }
 
 // тут конфигурируем конфиг для того чтобы потом задать пути на этапе до сборки чтобы
@@ -17,4 +25,6 @@ export interface BuildOptions {
     paths: BuildPath
     // isDev === true если mode === development
     isDev: boolean
+    // порт где октыть Арр
+    port: number
 }
