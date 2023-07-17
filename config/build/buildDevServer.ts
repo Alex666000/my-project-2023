@@ -6,5 +6,6 @@ export function buildDevServer(option: BuildOptions): DevServerConfiguration {
         port: option.port,
         // автоматически флаг открывает в браузеоре страницу с нашим приложением
         open: true,
+        historyApiFallback: true,
     }
 }
