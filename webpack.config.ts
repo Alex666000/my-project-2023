@@ -8,7 +8,7 @@ export default (env: BuildEnv) => {
     // список путей - пути явно нигде не указываем будем передавать как аргумент в функции
     const paths: BuildPath = {
         // путь до входа в приложение
-        entry: path.resolve(__dirname, 'src', 'index.ts'),
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
         // путь до папки с билдом === output
         build: path.resolve(__dirname, 'build'),
         // путь до html файлика
