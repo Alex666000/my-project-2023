@@ -7,6 +7,7 @@ export interface BuildPath {
     // путь до папки со сборкой
     build: string
     html: string
+    src: string
 }
 
 // для переменных окружения

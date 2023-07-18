@@ -13,6 +13,7 @@ export default (env: BuildEnv) => {
         build: path.resolve(__dirname, 'build'),
         // путь до html файлика
         html: path.resolve(__dirname, 'public', 'index.html'),
+        src: path.resolve(__dirname, 'src'),
 
     };
 

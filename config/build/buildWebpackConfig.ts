@@ -2,8 +2,8 @@ import {BuildOptions} from '../build/types/config';
 import webpack from 'webpack';
 import {buildPlugins} from './buildPlugins';
 import {buildLoaders} from './buildLoaders';
-import {buildResolve} from './buildResolve';
 import {buildDevServer} from './buildDevServer';
+import {buildResolvers} from './buildResolve';
 
 // Конфигурирует конфиг - основной конфиг - Сюда добавляем все плагины и лоадеры
 export function buildWebpackConfig(options: BuildOptions): webpack.Configuration {
@@ -21,7 +21,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
         module: {
             rules: buildLoaders(options),
         },
-        resolve: buildResolve(),
+        resolve: buildResolvers(options),
         // добавили source-map - чтобы четко видеть в коде где произошла ошибка
         // если isDev те === разработки режим... - то source-map добавляем
         devtool: isDev ? 'inline-source-map' : undefined,

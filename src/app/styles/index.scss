@@ -1,7 +1,7 @@
-@import "reset";
-@import "variables/global";
-@import "src/styles/themes/normal";
-@import "./themes/dark";
+@import "src/app/styles/reset";
+@import "src/app/styles/variables/global";
+@import "src/app/styles/themes/normal";
+@import "src/app/styles/themes/dark";
 
 
 .app {
