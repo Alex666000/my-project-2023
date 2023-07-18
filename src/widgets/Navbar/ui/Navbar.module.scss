@@ -1,0 +1,20 @@
+.navbar {
+    width: 100%;
+    height: var(--navbar-height);
+    // используем "инвертед" чтобы выделялся на фоне основного фона
+    background: var(--inverted-bg-color);
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.links {
+    // спозиционировать блок по правому краю
+
+    margin-left: auto;
+
+}
+
+.mainLink {
+    margin-right: 15px;
+}
