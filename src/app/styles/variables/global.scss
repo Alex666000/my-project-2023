@@ -10,13 +10,24 @@
     // L:
     --font-size-l: 16px; //  размер шрифта будем использовать в заголовках
     --font-line-l: 32px; // высота линии шрифта -l
-    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);// объединяющая переменная включающая в себя размер шрифта + размер лигии + сам шрифт
+    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main); // объединяющая переменная включающая в себя размер шрифта + размер лигии + сам шрифт
 
     // Размеры
-    --navbar-height: 50px
+    --navbar-height: 50px;
+
+    --sidebar-width: 300px;
+    --sidebar-width-collapsed: 80px;
 }
 
+
 /*
+- Переменные значат значения в scss фалах Компонент: Напримеер в файле Sidebar.module.scss
+напишем так:
+.collapsed {
+// берем значение переменной из global.scss
+    width: var(--sidebar-width-collapsed);
+}
+
 - Высоту линии шрифта -l- обычно делают на 8 рх больше чем -m-
 
 - После описания стилей подключаем все эти свойства в index.scss

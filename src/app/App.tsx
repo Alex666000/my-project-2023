@@ -1,9 +1,10 @@
 import React from 'react';
 import {useTheme} from 'app/providers/ThemeProvider';
 import {classNames} from 'shared/lib/classNames/classNames';
-import './styles/index.scss';
 import {AppRouter} from 'app/providers/router';
 import {Navbar} from 'widgets/Navbar';
+import {Sidebar} from 'widgets/Sidebar';
+import './styles/index.scss';
 
 
 const App = () => {
@@ -12,10 +13,16 @@ const App = () => {
     return (
         <div className={classNames('app', {}, [theme])}>
             <Navbar/>
-            <AppRouter/>
-            {/*<button onClick={toggleTheme}>TOGGLE</button>*/}
+            <div className="container-page">
+                <Sidebar/>
+                <AppRouter/>
+            </div>
         </div>
     );
 };
 
 export default App;
+
+/*
+Тут можно css module не использовать тк корневой компонент
+ */
