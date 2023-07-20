@@ -1,12 +1,12 @@
+import React, { Suspense, useEffect } from 'react';
+import './styles/index.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTheme } from 'app/providers/ThemeProvider';
 import { AppRouter } from 'app/providers/router';
 import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
-import './styles/index.scss';
-import { Suspense } from 'react';
 
-const App = () => {
+function App() {
     const { theme } = useTheme();
 
     return (
@@ -20,10 +20,6 @@ const App = () => {
             </Suspense>
         </div>
     );
-};
+}
 
 export default App;
-
-/*
-Тут можно css module не использовать тк корневой компонент
- */
