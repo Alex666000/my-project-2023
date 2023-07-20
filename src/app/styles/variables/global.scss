@@ -1,6 +1,6 @@
 :root {
     // Шрифт для всего Арр - если его нет то используем резервный...
-    --font-family-main: Consolas, "Times New Roman";
+    --font-family-main: consolas, "Times New Roman";
 
     // M:
     --font-size-m: 16px; // средний размер шрифта по умолчанию во всех текстах приложения
@@ -14,7 +14,6 @@
 
     // Размеры
     --navbar-height: 50px;
-
     --sidebar-width: 300px;
     --sidebar-width-collapsed: 80px;
 }

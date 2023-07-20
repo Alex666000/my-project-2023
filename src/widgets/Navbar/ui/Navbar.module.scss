@@ -1,6 +1,7 @@
 .navbar {
     width: 100%;
     height: var(--navbar-height);
+
     // используем "инвертед" чтобы выделялся на фоне основного фона
     background: var(--inverted-bg-color);
     display: flex;
