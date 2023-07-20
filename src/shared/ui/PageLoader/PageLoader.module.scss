@@ -1,0 +1,10 @@
+.PageLoader {
+    // от всей высоты окна браузера отнимим высоту Навбара
+    min-height: calc(100vh - var(--navbar-height));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // чтобы не было скачков между соседним блоком
+    flex-grow: 1;
+}

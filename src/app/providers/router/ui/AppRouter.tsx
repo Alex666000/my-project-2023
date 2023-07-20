@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { routeConfig } from 'shared/config/routeConfig/routeConfig';
+import { PageLoader } from 'shared/ui/PageLoader/PageLoader';
 
 // Будет отображаться та или иная страница AppRouter - на экране у пользователя
 const AppRouter = () => (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<PageLoader />}>
         <Routes>
             {/* так как нам нужен массив значений то Object.values - тогда получим
                   нужные значения которые будем передавать как пропсы  в компонент Route */}

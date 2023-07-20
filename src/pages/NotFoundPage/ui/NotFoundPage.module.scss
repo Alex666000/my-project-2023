@@ -1,0 +1,10 @@
+.NotFoundPage {
+    display: flex;
+    // выровнять по вертикали
+    align-items: center;
+    // выровнять по горизонтали
+    justify-content: center;
+    // покрупнее текст
+    font: var(--font-l);
+    height: 100%;
+}
