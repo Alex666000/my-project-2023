@@ -1,6 +1,6 @@
-import {ButtonHTMLAttributes, FC, memo} from 'react';
+import { ButtonHTMLAttributes, FC, memo } from 'react';
+import { classNames } from 'shared/lib/classNames/classNames';
 import cls from './Button.module.scss';
-import {classNames} from 'shared/lib/classNames/classNames';
 
 export enum ThemeButton {
     // кнопка без всего просто текст без рамки  без цвета заднего фона
@@ -23,6 +23,7 @@ export const Button: FC<ButtonProps> = memo((props) => {
 
     return (
         <button
+            type="button"
             className={classNames(cls.Button, {}, [className, cls[theme]])}
             {...otherProps}
         >

@@ -1,8 +1,7 @@
-
 type Mods = Record<string, boolean | string>
 
 // Для удобного комбинирования классов особенно если они навешиваются по условию:
-export function classNames(cls: string, mods: Mods = { }, additional: string[] = [ ]): string {
+export function classNames(cls: string, mods: Mods = { }, additional: string[] = []): string {
     return [
         // главный класс
         cls,
@@ -10,7 +9,7 @@ export function classNames(cls: string, mods: Mods = { }, additional: string[] =
         ...additional.filter(Boolean),
         ...Object.entries(mods)
             .filter(([className, value]) => Boolean(value))
-            .map(([className]) => className)
+            .map(([className]) => className),
     ]
         // склеиванием массив
         .join(' ');

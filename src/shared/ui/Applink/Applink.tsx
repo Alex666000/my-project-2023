@@ -1,8 +1,7 @@
-import {FC, memo, ReactNode} from 'react';
-import {classNames} from '../../lib/classNames/classNames';
+import { FC, memo, ReactNode } from 'react';
+import { Link, LinkProps } from 'react-router-dom';
+import { classNames } from '../../lib/classNames/classNames';
 import cls from './Applink.module.scss';
-import {Link, LinkProps} from 'react-router-dom';
-
 
 export const enum AppLinkTheme {
     PRIMARY = 'primary', // первичная тема
@@ -28,7 +27,7 @@ export const AppLink: FC<AppLinkProps> = (props) => {
     return (
         <Link
             to={to}
-            className={classNames(cls.AppLink, {[cls[theme]]: true}, [className])}
+            className={classNames(cls.AppLink, { [cls[theme]]: true }, [className])}
             {...otherProps}
         >
             {children}
@@ -40,4 +39,3 @@ extends - у компонента Link есть свои родные пропс
 
 если захотим передать еще др пропсы
  */
-

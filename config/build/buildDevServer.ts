@@ -1,5 +1,5 @@
-import {BuildOptions} from './types/config';
-import {Configuration as DevServerConfiguration} from 'webpack-dev-server';
+import { Configuration as DevServerConfiguration } from 'webpack-dev-server';
+import { BuildOptions } from './types/config';
 
 export function buildDevServer(option: BuildOptions): DevServerConfiguration {
     return {
@@ -8,5 +8,5 @@ export function buildDevServer(option: BuildOptions): DevServerConfiguration {
         open: true,
         historyApiFallback: true,
         hot: true,
-    }
+    };
 }
