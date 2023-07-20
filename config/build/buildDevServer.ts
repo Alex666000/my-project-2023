@@ -7,5 +7,6 @@ export function buildDevServer(option: BuildOptions): DevServerConfiguration {
         // автоматически флаг открывает в браузеоре страницу с нашим приложением
         open: true,
         historyApiFallback: true,
+        hot: true,
     }
 }
