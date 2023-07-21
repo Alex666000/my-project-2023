@@ -1,12 +1,21 @@
-@import "reset";
-@import "variables/global";
-@import "themes/normal";
-@import "themes/dark";
+@import "./reset";
+@import "./variables/global";
+@import "./themes/normal";
+@import "./themes/dark";
+
 
 .app {
+    // Опишем свойства Арр по умолчанию:
+
+    /* ---------------------------------------------------------------------------------- */
+    // Шрифт (объединяющий) по умолчанию будет использоваться во всех текстах приложения
     font: var(--font-m);
+
+    // Подключаем переменные по умолчанию во всем Арр - из обоих файлов с темами:
     background: var(--bg-color);
     color: var(--primary-color);
+
+    // Минимальный размер приложения
     min-height: 100vh;
 }
 
@@ -14,7 +23,11 @@
     display: flex;
 }
 
+// Так как Арр рисует <AppRouter/> то его классы задаем в файле стилей Арр!
 .page-wrapper {
+    // страничка растянется на всю ширину и соседнии Сайдбар никак сдвигать не будет
     flex-grow: 1;
     padding: 20px;
 }
+
+
