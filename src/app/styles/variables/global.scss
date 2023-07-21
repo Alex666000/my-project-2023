@@ -12,6 +12,11 @@
     --font-line-l: 32px; // высота линии шрифта -l
     --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main); // объединяющая переменная включающая в себя размер шрифта + размер лигии + сам шрифт
 
+    // XL:
+    --font-size-xl: 32px; //  размер шрифта будем использовать в заголовках
+    --font-line-xl: 40px; // высота линии шрифта - xl
+    --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+
     // Размеры
     --navbar-height: 50px;
     --sidebar-width: 300px;
