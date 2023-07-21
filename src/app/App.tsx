@@ -10,6 +10,7 @@ function App() {
     const { theme } = useTheme();
 
     return (
+        // дополнительным классом навешивается тема
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback="">
                 <Navbar />
