@@ -6,14 +6,9 @@ const MainPage = () => {
 
     return (
         <div>
-            {/* MainPage */}
             {t('Главная страница')}
         </div>
     );
 };
 
 export default MainPage;
-
-/*
-useTranslation() - Всегда пишем на русском потом в переводы добавляем переводы
- */

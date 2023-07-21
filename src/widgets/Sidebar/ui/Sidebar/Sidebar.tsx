@@ -1,41 +1,38 @@
-import React, { memo, useState } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { useState } from 'react';
 import { ThemeSwitcher } from 'shared/ui/ThemeSwitcher';
 import { LangSwitcher } from 'shared/ui/LangSwitcher/LangSwitcher';
+import { Button } from 'shared/ui/Button/Button';
+import { useTranslation } from 'react-i18next';
 import cls from './Sidebar.module.scss';
 
 interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar = memo((props: SidebarProps) => {
-    const { className } = props;
-
-    // состояние свернут Сайдбар или развернут
-    // по умолчанию развернут
+export const Sidebar = ({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState(false);
+    const { t } = useTranslation();
 
     const onToggle = () => {
-        setCollapsed((prevState) => !prevState);
+        setCollapsed((prev) => !prev);
     };
-
+    //
     return (
-        <div className={classNames(cls.Sidebar, { [cls.collapsed]: collapsed }, [className])}>
-            <button type="button" onClick={onToggle}>toggle</button>
+        <div
+            data-testid="sidebar"
+            className={classNames(cls.Sidebar, { [cls.collapsed]: collapsed }, [className])}
+        >
+            <Button
+                data-testid="sidebar-toggle"
+                onClick={onToggle}
+            >
+                {t('Переключить')}
+            </Button>
             <div className={cls.switchers}>
                 <ThemeSwitcher />
                 <LangSwitcher className={cls.lang} />
             </div>
-
         </div>
     );
-});
-/*
-сложные папки fsd -- так как Сайдбар сложный компонент в нем может быть много компонентов не только Sidebar.tsx о создаем в папке ui папку Sidebar
-напримр SidebarItem SidebarHeader и тд
-
-По условию будем навешивать класс collapsed и этот класс будет зависеть от этого состояния [cls.collapsed] - если [cls.collapsed]
- = true то класс collapsed навешиваем если фолс то удаляем
-
-По нажатию на кноку Сайдбар сворачивается и разворачивается на ширину класса collapsed
- */
+};

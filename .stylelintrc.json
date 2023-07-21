@@ -3,7 +3,6 @@
   "rules": {
     "indentation": [4],
     "selector-class-pattern": null,
-    "scss/double-slash-comment-empty-line-before": null,
-    "declaration-empty-line-before": null
+    "max-line-length": 190
   }
 }

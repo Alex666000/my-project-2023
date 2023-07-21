@@ -1,29 +1,23 @@
 .Sidebar {
-    // на всю страницу за вычетом Навбара=Шапки что сделали
     height: calc(100vh - var(--navbar-height));
-    width: var(--sidebar-width); // 300px
+    width: var(--sidebar-width);
     background: var(--inverted-bg-color);
     position: relative;
-
-    // плавно изменять какое-либо свойство
     transition: width 0.3s;
 }
 
 .collapsed {
-    // в свернутом виде
-    width: var(--sidebar-width-collapsed); // 80px
+    width: var(--sidebar-width-collapsed);
 }
 
 .switchers {
     position: absolute;
     bottom: 20px;
-
-    // переключатели ThemeSwitcher и LangSwitcher выравиваем по центру
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-.lang{
+.lang {
     margin-left: 20px;
 }
