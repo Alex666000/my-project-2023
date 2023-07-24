@@ -5,7 +5,7 @@ import i18nForTests from 'shared/config/i18n/i18nForTests';
 
 // чтобы изолировано тестировать компоненты использующие переводы - добавляет тестируемый компонент в обертку
 // и добавляет нужную конфигурацию дял переводов
-export function renderWithTranslation(component: ReactNode) {
+export function componentRender(component: ReactNode) {
     return render(
         // I18nextProvider - из библы i18next-a...
         <I18nextProvider i18n={i18nForTests}>

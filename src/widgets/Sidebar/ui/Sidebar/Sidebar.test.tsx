@@ -1,18 +1,16 @@
 import { fireEvent, screen } from '@testing-library/react';
-import {
-    renderWithTranslation,
-} from 'shared/lib/tests/renderWithTranslation/renderWithTranslation';
 import { Sidebar } from 'widgets/Sidebar';
+import { componentRender } from 'shared/lib/tests/componentRender/componentRender';
 
 describe('Sidebar', () => {
     test('with only first param', () => {
-        renderWithTranslation(<Sidebar />);
+        componentRender(<Sidebar />);
         expect(screen.getByTestId('sidebar')).toBeInTheDocument();
     });
 
     // Для сворачивания и разворачивания Сайдбара
     test('test toggle', () => {
-        renderWithTranslation(<Sidebar />);
+        componentRender(<Sidebar />);
         // на кнопку в компоненте вешаем testid - находим кнопку
         const toggleBtn = screen.getByTestId('sidebar-toggle');
         expect(screen.getByTestId('sidebar')).toBeInTheDocument();
