@@ -1,13 +1,10 @@
+// Основные классы
 .Sidebar {
     height: calc(100vh - var(--navbar-height));
     width: var(--sidebar-width);
     background: var(--inverted-bg-color);
     position: relative;
     transition: width 0.3s;
-}
-
-.collapsed {
-    width: var(--sidebar-width-collapsed);
 }
 
 .switchers {
@@ -26,4 +23,47 @@
     position: absolute;
     right: -32px;
     bottom: 32px;
+}
+
+.items {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.item {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.link {
+    margin-left: 10px;
+    opacity: 1;
+}
+
+.icon {
+    // Меняем цвет самой иконки
+    fill: var(--inverted-primary-color);
+}
+
+.collapsed {
+    width: var(--sidebar-width-collapsed);
+
+    // Переопределяем стили основных классов выше: .switchers и .lang
+    .switchers {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lang {
+        margin-left: 0;
+    }
+
+    .link {
+        opacity: 0;
+        transition: 0.2s opacity;
+        width: 0;
+    }
 }

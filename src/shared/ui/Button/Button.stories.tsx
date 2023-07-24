@@ -77,6 +77,21 @@ SquareSizeXL.args = {
     square: true,
     size: ButtonSize.XL,
 };
+
+export const OutlineSizeL = Template.bind({});
+OutlineSizeL.args = {
+    children: '>',
+    theme: ButtonTheme.OUTLINE,
+    size: ButtonSize.L,
+};
+
+export const OutlineSizeXL = Template.bind({});
+OutlineSizeXL.args = {
+    children: '<',
+    theme: ButtonTheme.OUTLINE,
+    size: ButtonSize.XL,
+};
+
 /*
 - Сторибук - это витрина компонентов
 - Состоит: из названия сториса компонента что хотим отрисовать и состояния разные компонента в зависимости от пропсов - в зависимости от разных пропсов компонент выглядит по разному. Сторибуки есть чтобы любои мог посмотреть что из себя представляет компонент и какие у него есть состояния
