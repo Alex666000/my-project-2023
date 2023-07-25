@@ -1,16 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
+import { userReducer } from 'entities/User';
 import { StateSchema } from './StateSchema';
 
 // Создаем store
 export function createReduxStore(initialState?: StateSchema) {
-    return configureStore<StateSchema>({
-        reducer: {
-            // 7) добавляем редюсеры потом надо сущности добавить куда-то чтобы отрисовать...
-            counter: counterReducer,
+    // корневой редюсер - добавляем сюда все редюсеры
+    const rootReducers: ReducersMapObject<StateSchema> = {
+        // 7) добавляем редюсеры потом надо сущности добавить куда-то чтобы отрисовать...
+        counter: counterReducer,
+        user: userReducer,
+    };
 
-        },
-        devTools: __IS_DEV__, // отключаем девтулзы для продакшена
+    return configureStore<StateSchema>({
+        reducer: rootReducers,
+        devTools: __IS_DEV__, // отключаем девтулзы для "продакшена"
         preloadedState: initialState,
     });
 }
