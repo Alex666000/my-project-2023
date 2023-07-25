@@ -6,7 +6,7 @@ import { StateSchema } from './StateSchema';
 export function createReduxStore(initialState?: StateSchema) {
     return configureStore<StateSchema>({
         reducer: {
-            // 7) добавляем редюсеры потом Счетчик добавляем куда-то чтобы отрисовать...
+            // 7) добавляем редюсеры потом надо сущности добавить куда-то чтобы отрисовать...
             counter: counterReducer,
 
         },
