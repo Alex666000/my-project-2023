@@ -1,0 +1,54 @@
+.Modal {
+    // Чтобы прикреплено было всегда в одном месте экрана
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0;    // Изначально модалку делаем невидимой
+    pointer-events: none; // нельзя кликать по Модалке
+    z-index: -1;
+    color: var(--primary-color);
+}
+
+.Modal.dark {
+    --bg-color: #090949;
+    --primary-color: #04ff04;
+}
+
+// Подложка
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: var(--overlay-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Контент
+.content {
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--bg-color);
+    transition: 0.3s transform; // анимация на transform
+    transform: scale(0.5); // изначальный размер
+    max-width: 60%;
+}
+
+.opened {
+    // Делаем видимой
+    pointer-events: auto;
+    opacity: 1;
+    z-index: var(--modal-z-index);
+
+    .content {
+        transform: scale(1); // увеличиваем размер
+    }
+}
+
+.isClosing {
+    .content {
+        transform: scale(0.2); // уменьшаем размер
+    }
+}

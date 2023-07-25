@@ -80,16 +80,22 @@ SquareSizeXL.args = {
 
 export const OutlineSizeL = Template.bind({});
 OutlineSizeL.args = {
-    children: '>',
+    children: 'Text',
     theme: ButtonTheme.OUTLINE,
     size: ButtonSize.L,
 };
 
 export const OutlineSizeXL = Template.bind({});
 OutlineSizeXL.args = {
-    children: '<',
+    children: 'Text',
     theme: ButtonTheme.OUTLINE,
     size: ButtonSize.XL,
+};
+
+export const ClearInverted = Template.bind({});
+ClearInverted.args = {
+    children: 'Text',
+    theme: ButtonTheme.CLEAR_INVERTED,
 };
 
 /*

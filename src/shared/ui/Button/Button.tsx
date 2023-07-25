@@ -3,8 +3,9 @@ import { ButtonHTMLAttributes, FC } from 'react';
 import cls from './Button.module.scss';
 
 export enum ButtonTheme {
-    CLEAR = 'clear',
-    OUTLINE = 'outline',
+    CLEAR = 'clear', // без рамки
+    CLEAR_INVERTED = 'clearInverted', //
+    OUTLINE = 'outline', // тема с рамочкой
     BACKGROUND = 'background',
     BACKGROUND_INVERTED = 'backgroundInverted',
 }
