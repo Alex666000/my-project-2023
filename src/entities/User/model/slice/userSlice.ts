@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { UserSchema } from '../types/user';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
+import { User, UserSchema } from '../types/user';
 
 const initialState: UserSchema = { };
 
@@ -7,11 +8,25 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        increment(state) {
-
+        // помещаем данные в стейт - ожидаем тип User на вход
+        setAuthData: (state, action: PayloadAction<User>) => {
+            state.authData = action.payload;
+            // далее идем в санку loginByUsername и там диспатчим эти экшены сюда в редюсер
         },
-        decrement(state) {
-
+        // ...Далее надо сделать логику что после перезагрузки страница (или закрытия и открытия вкладки)
+        // зареганым Юзером - что Юзер авторизован - идем в userSlice
+        // Достаем данные о Юзере из ЛС
+        initAuthData: (state) => {
+            const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+            if (user) {
+                // помещаем в стейт эти данные - распарсив обратно из строки в объект
+                state.authData = JSON.parse(user);
+                // Далее в самом корне приложения initAuthData будем вызывать в Арр идет в него -->
+            }
+        },
+        logout: (state) => {
+            state.authData = undefined; // очищаем стейт
+            localStorage.removeItem(USER_LOCALSTORAGE_KEY); // удаляем токен с данными о Юзере
         },
     },
 });
@@ -34,5 +49,7 @@ export const { reducer: userReducer } = userSlice;
     counter: CounterSchema;
     user: UserSchema
 }
--
+- ... после того как сделали фичу AuthByUserName - данные по авторизации надо сохранять в стейт
+и в зависимости от того есть эти данные или нет - мы будем определять авторизован ли User или нет
+
  */

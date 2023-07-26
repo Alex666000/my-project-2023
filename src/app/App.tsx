@@ -4,9 +4,18 @@ import { useTheme } from 'app/providers/ThemeProvider';
 import { AppRouter } from 'app/providers/router';
 import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
+import { useDispatch } from 'react-redux';
+import { userActions } from 'entities/User';
 
 function App() {
     const { theme } = useTheme();
+    const dispatch = useDispatch();
+
+    // авторизация Юзера
+    useEffect(() => {
+        dispatch(userActions.initAuthData());
+    }, [dispatch]);
+    // Далее если пользователь авторизован надо кнопку скрывать "Воити" идем в Navbar  -->...
 
     return (
         // дополнительным классом навешивается тема
