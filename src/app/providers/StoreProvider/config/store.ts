@@ -32,6 +32,8 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
     return store;
 }
 
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];
+
 /*
 - initialState?: StateSchema - инициализируем стор - понадобятся эти данные для тестов
 - если сделать редюсер не обязательным то сделаем редюсер асинхронным - подгружать будем дальше как
@@ -50,4 +52,6 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
 reducerManager стр 23 --- reducer: reducerManager.reduce,
 
 - Добавили asyncReducers 2 аргумент в createReduxStore
+- Добавляем тип AppDispatch - и его в паблик апи
+- ReturnType - тип того что функция вернет
  */

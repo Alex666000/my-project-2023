@@ -4,6 +4,7 @@ import { LoginSchema } from 'features/AuthByUserName';
 import {
     AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
+import { ProfileSchema } from 'entities/Profile';
 
 // Типизируем store всего Арр
 export interface StateSchema {
@@ -12,7 +13,9 @@ export interface StateSchema {
     user: UserSchema
 
     // Асинхронные редюсеры (их удаляем из rootReducers в store.ts - ни не обязательны - в корневом редюсере оставляем только обязательные редюсеры)
+    // Добавляем поля с таким-то типом:
     loginForm?: LoginSchema // сделаем необязательным -  будем добавлять его асинхронно с помощью reducerManager
+    profile?: ProfileSchema
 
 }
 

@@ -30,7 +30,8 @@ export const LoginModal = memo((props: LoginModalProps) => {
         >
             {/* <LoginForm /> */}
             <Suspense fallback={<Loader />}>
-                <LoginFormAsync />
+                {/* на успешную авторизацию закрываем модалку */}
+                <LoginFormAsync onSuccess={onClose} />
             </Suspense>
         </Modal>
     );
