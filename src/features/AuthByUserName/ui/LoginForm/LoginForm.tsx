@@ -1,32 +1,38 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
+import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { Input } from 'shared/ui/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
-import { Input } from 'shared/ui/Input/Input';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { getLoginState } from '../../model/selectors/gettLoginState/getLoginState';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { loginActions, loginReducer } from 'features/AuthByUserName/model/slice/loginSlice';
+import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
+import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
+import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
+import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import { loginByUsername } from '../../model/services/loginByUsername/loginByUsername';
-import { loginActions } from '../../model/slice/loginSlice';
 import cls from './LoginForm.module.scss';
 
-interface LoginFormProps {
+export interface LoginFormProps {
     className?: string;
 }
 
-export const LoginForm = memo((props: LoginFormProps) => {
+// указывает с какими редюсерами будет работать
+const initialReducers: ReducersList = {
+    loginForm: loginReducer,
+};
+
+const LoginForm = memo((props: LoginFormProps) => {
     const { className } = props;
 
     const { t } = useTranslation();
 
     const dispatch = useDispatch();
-
-    // const loginForm = useSelector(getLoginState);
-
-    // 11 - сразу деструктуризируем и достанем
-    const {
-        username, password, isLoading, error,
-    } = useSelector(getLoginState);
+    const username = useSelector(getLoginUsername);
+    const password = useSelector(getLoginPassword);
+    const isLoading = useSelector(getLoginIsLoading);
+    const error = useSelector(getLoginError);
 
     const onChangeUsername = useCallback((value: string) => {
         dispatch(loginActions.setUsername(value));
@@ -42,66 +48,66 @@ export const LoginForm = memo((props: LoginFormProps) => {
     }, [dispatch, password, username]);
 
     return (
-        <div className={classNames(cls.LoginForm, {}, [className])}>
-            <Text title={t('Форма авторизации')} />
-            {error && <Text text={t('Вы ввели неверный логин или пароль')} theme={TextTheme.ERROR} />}
-            <Input
-                autofocus
-                type="text"
-                className={cls.input}
-                placeholder={t('Введите username')}
-                onChange={onChangeUsername}
-                value={username}
-            />
-            <Input
-                type="text"
-                className={cls.input}
-                placeholder={t('Введите пароль')}
-                onChange={onChangePassword}
-                value={password}
-            />
-            <Button
-                theme={ButtonTheme.OUTLINE}
-                className={cls.loginBtn}
-                onClick={onLoginClick}
-                disabled={isLoading}
-            >
-                {t('Войти')}
-            </Button>
-        </div>
+        <DynamicModuleLoader
+            removeAfterUnmount
+            reducers={initialReducers} //
+        >
+            <div className={classNames(cls.LoginForm, {}, [className])}>
+                <Text title={t('Форма авторизации')} />
+                {error && <Text text={t('Вы ввели неверный логин или пароль')} theme={TextTheme.ERROR} />}
+                <Input
+                    autofocus
+                    type="text"
+                    className={cls.input}
+                    placeholder={t('Введите username')}
+                    onChange={onChangeUsername}
+                    value={username}
+                />
+                <Input
+                    type="text"
+                    className={cls.input}
+                    placeholder={t('Введите пароль')}
+                    onChange={onChangePassword}
+                    value={password}
+                />
+                <Button
+                    theme={ButtonTheme.OUTLINE}
+                    className={cls.loginBtn}
+                    onClick={onLoginClick}
+                    disabled={isLoading}
+                >
+                    {t('Войти')}
+                </Button>
+            </div>
+        </DynamicModuleLoader>
     );
 });
+export default LoginForm;
 
 /*
-5 - продолжение логики фичи AuthByUserName - дотаем диспатч чтобы экшены диспатчить в редюсер для изменения стейта
-делаем функции (логику) onChangeUsername onChangePassword - то что на UI пользователь ввел в инпуты b передаем пропсом вниз
-также надо передать вниз  пропсами value (тк его задиспатчили - он  в стейте глобальном поменялся) -
-его надо сначало со стейта получить новое значение
-6) - для этого делаем селекторы - 1 доставать весь стейт 2 - чтобы кусок нужный стейта
-- компонент в мемо обернуть
-- Не забываем поправить пути на относительные - в рамках модуля они относительные
-11 - сразу деструктуризируем и достанем из Селектора данные
-12 - открываем в бпаузере и проверяем: вводим в инпуты значения + в девтулзах(дебажим изменения состояния инпута) смотрим как вызываются экшены и значение
-нового состояния + в нетворке как работает фича "логинизации"
-13 - Делаем логику по нажатию на кнопку "Войти" после того как ввели данные в инпуты: onLoginClick передали в кнопку -
-14 создаем асинхронный акшен=санку - для отправки запроса на сервер и возвращает в ответе какие-то данные
-и эти данные в слайсе в экстраредюсере обрабатываем - см loginByUsername.ts...
-- Не забываем поправить пути на относительные - в рамках модуля они относительные
-- Вызываем санку по нажатию на кнопку строка 36 функция onLoginClick
-- Запускаем девсервер чтоб было куда отправлять запросы + фронт запускаем - смотрим девтулзы и нетворк...и выполняем пункт 12 еше раз... и
-дополнительно нажимаем на кнопку "Войти" и видим в консоле ошибку если 403 - запрещенные данные (ввели не соответствующий логин и пароль что в БД)
-введем верные данне "username": "admin", "password": "123" и видим в нетворке что запрос login 200 ок
-- Как дебажить ошибку:  18.30 мин 34 видео
-- Обработаем isLoading - индикацию загрузки пока запрос идет и error: const {isLoading, error} = useSelector(getLoginState);
-- в момент пока идет загрузка конку будем дизеиблить чтобы не могли нажать на нее несколько раз - добавим проп disabled для ui kit Button +
-после добавим класс + стори на это новое состояние кнопки --
-- Кнопку дизейблить будем по флагу isLoading -- disabled={isLoading}
-- Обработаем ошибку - добавим блок div - если ошибка есть то его будем отрисовывать стр.45: {error && <div>{error}</div>}
-- Выполняем п 12 - пробуем на UX воити.... видим дизейбл работает - и проверяем ошибку - введем не верные данные...готово, сделаем ошибку красного цвета
-или UI kit Text -шем внутри стиль для error + стори для UI kit Text - заменяем div на Text:
-{error && <Text text={t('Вы ввели неверный логин или пароль')} theme={TextTheme.ERROR} />}
-- Логику по авторизации готова - но с данными которые получаем с сервака мы ничего не делаем - их надо сохранять в стейт
-и в зависимости от того есть эти данные или нет  мы будем определять авторизован ли User или нет - идем в userSlice и в нем эти данные будем хранить
---> userSlice.ts в редюсеры обычные....
+________________________________________________________________________________________________________________________________________________________________
+   -----------> 35 ВИДЕО: 35 - Оптимизация бандла BundleAnalyzerPlugin Suspense  + 7 min как работать с асинхронными редюсерами
+- Сделаем форму авторизации асинхронной рядом создаем асинхронный компонент LoginForm.async.ts - и теперь
+компонент LoginForm экспортируем по дефолту
+- Когда создали reducerManager
 
+- Используем логику асинхронного редюсера со строки 25-30:
+const store = useStore() as ReduxStoreWithManager;
+    useEffect(() => {
+        // в момент вмонтирования компонента нам надо с помощью reducerManager - редюсер необходимо добавить
+        store.reducerManager.add('loginForm', loginReducer);
+    }, [store.reducerManager]);
+
+Теперь редюсер который мы экспортировали наружу в паблике фичи AuthByUserName можно удалить - он изолирован внутри модуля
+и подключать его будем  внутри модуля асинхронно - компонент LoginForm сам асинхронный и этот редюсер будет подгружаться только со своим
+асинхронным компонентом асинхронно - важно удалить этот редюсер когда компонент будет не нужен - очищаем useEffect (в массив зависимостей ничего добавлять
+ не надо тк ожидается что эффект должен отработать  только 1 раз при вмонтировании компонента)
+
+- Подитожим теорию: в момент вмонтирования компонента мы добавляем редюсер потом когда компонент уже не нужен  когда он демонтируется реактом
+мы этот редюсер снова удаляем --- смотри как это работает в нетворке  20 мин...
+- для каждого отдельного поля стейта используем свои маленькии селектор
+- Импорты на относительные...
+- Таким образом асинхронно редюсер вмонтировали в наш стейт
+- Выносим подключение редюсера что в useEffect-е -- в DynamicModuleLoader (компонент где логику по подключению редюсеров
+изолируем) -- далее оборачиваем наш компонент в DynamicModuleLoader -  передаем в него соответствующие пропсы
  */

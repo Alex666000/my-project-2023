@@ -1,14 +1,34 @@
-// Типизируем store всего Арр
-
 import { CounterSchema } from 'entities/Counter';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUserName';
+import {
+    AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject,
+} from '@reduxjs/toolkit';
 
+// Типизируем store всего Арр
 export interface StateSchema {
     // стейты конкретных сущностей
     counter: CounterSchema;
     user: UserSchema
-    loginForm: LoginSchema
+
+    // Асинхронные редюсеры (их удаляем из rootReducers в store.ts - ни не обязательны - в корневом редюсере оставляем только обязательные редюсеры)
+    loginForm?: LoginSchema // сделаем необязательным -  будем добавлять его асинхронно с помощью reducerManager
+
+}
+
+// 35 Видео:
+export type StateSchemaKey = keyof StateSchema
+
+// создаем тип для reducerManager
+export interface ReducerManager {
+    getReducerMap: () => ReducersMapObject<StateSchema>;
+    reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>;
+    add: (key: StateSchemaKey, reducer: Reducer) => void;
+    remove: (key: StateSchemaKey) => void;
+}
+
+export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
+    reducerManager: ReducerManager;
 }
 
 /*
@@ -21,4 +41,12 @@ export interface StateSchema {
  асинхронные компоненты только в тот момент когда редюсер нам нужен (для оптимизации) - но пока оставим так...
 9) Экспортим loginReducer из паблик апи после чего подключаем его к rootReducers в файле store.ts
 возвращаемся к селектору getLoginState и он нам подскажет что уже loginForm уже есть
+-----------------------------------------------------------------------------------------------------------------------------
+                                                    35 Видео:
+- допишем тип StateSchemaKey для асинхронных редюсеров для логики reducerManager-a...
+- keyof -- ключи название редюсеров достаем - например создаем объект const keyFromState: StateSchemaKey = 'user' - будем создавать не массив
+строк а массив ключей === названий редюсеров
+- loginForm?: LoginSchema // сделаем необязательным -  будем добавлять его асинхронно с помощью reducerManager --
+// Асинхронные редюсеры (их удаляем из rootReducers в store.ts - ни не обязательны)
+- экспортируем тип ReduxStoreWithManager из паблик апи
  */
