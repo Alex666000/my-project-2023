@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { ProfileSchema } from '../types/profile';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchProfileData } from 'entities/Profile';
+import { Profile, ProfileSchema } from '../types/profile';
 
 const initialState: ProfileSchema = {
     // значения по умолчанию объявим
@@ -13,6 +14,26 @@ export const profileSlice = createSlice({
     name: 'profile',
     initialState,
     reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchProfileData.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(fetchProfileData.fulfilled, (
+                state,
+                action: PayloadAction<Profile>,
+            ) => {
+                state.isLoading = false;
+                // сохраняем полученные данные от сервера в наш стейт в поле data
+                state.data = action.payload;
+                // чтобы эти данные могли использовать в компоненте делаем селекторы по обработке состояний и получения данных для их отрисовки
+            })
+            .addCase(fetchProfileData.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            });
+    },
 });
 
 // Action creators are generated for each case reducer function

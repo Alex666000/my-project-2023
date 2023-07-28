@@ -1,11 +1,19 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+import {
+    CombinedState, configureStore, Reducer, ReducersMapObject,
+} from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { createReducerManager } from 'app/providers/StoreProvider/config/reducerManager';
-import { StateSchema } from './StateSchema';
+import { $api } from 'shared/api/api';
+import { NavigateOptions, To } from 'react-router-dom';
+import { StateSchema, ThunkExtraArg } from './StateSchema';
 
 // Создаем store
-export function createReduxStore(initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) {
+export function createReduxStore(
+    initialState?: StateSchema,
+    asyncReducers?: ReducersMapObject<StateSchema>,
+    navigate?: (to: To, options?: NavigateOptions) => void,
+) {
     // корневой редюсер - добавляем сюда все редюсеры
     const rootReducers: ReducersMapObject<StateSchema> = {
         // Полученные асинхронные  редюсеры из вне разворачиваем в корневой  редюсер
@@ -20,15 +28,26 @@ export function createReduxStore(initialState?: StateSchema, asyncReducers?: Red
 
     const reducerManager = createReducerManager(rootReducers); // создаем reducerManager
 
-    const store = configureStore<StateSchema>({
+    const extraArg: ThunkExtraArg = {
+        api: $api,
+        navigate,
+    };
+
+    const store = configureStore({
         // reducer: rootReducers,
-        reducer: reducerManager.reduce, // вместо строки 22 теперь этот код для асинхр.редюсеров
+        reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>, // вместо строки 22 теперь этот код для асинхр.редюсеров
         devTools: __IS_DEV__, // отключаем девтулзы для "продакшена"
         preloadedState: initialState,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+            thunk: {
+                extraArgument: extraArg,
+            },
+        }),
     });
 
     // @ts-ignore
     store.reducerManager = reducerManager; // Добавляем к стору reducerManager - овое поле добавили к стору...
+
     return store;
 }
 

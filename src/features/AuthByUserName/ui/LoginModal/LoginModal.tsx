@@ -1,4 +1,3 @@
-// Модалка внутри которой будет лежать LoginForm
 import { memo, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
@@ -12,6 +11,7 @@ interface LoginModalProps {
     onClose: () => void;
 }
 
+// Модалка внутри которой будет лежать LoginForm
 export const LoginModal = memo((props: LoginModalProps) => {
     const {
         className,
