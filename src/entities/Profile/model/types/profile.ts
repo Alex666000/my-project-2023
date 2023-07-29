@@ -1,5 +1,14 @@
-import { Country } from 'shared/const/common';
 import { Currency } from 'entities/Currency';
+import { Country } from 'entities/Country';
+
+// типизация для валидации формы ProfileCard
+export enum ValidateProfileError {
+    INCORRECT_USER_DATA = 'INCORRECT_USER_DATA', // некорректное имя или фамилия
+    INCORRECT_AGE = 'INCORRECT_AGE',
+    INCORRECT_COUNTRY = 'INCORRECT_COUNTRY',
+    NO_DATA = 'NO_DATA',
+    SERVER_ERROR = 'SERVER_ERROR',
+}
 
 // данные профиля что получаем с БД с сервера
 export interface Profile {
@@ -20,6 +29,8 @@ export interface ProfileSchema {
     isLoading: boolean;
     error?: string;
     readonly: boolean; // флаг - доступен ли Юзер для редактирования или он только readonly
+    // в стейт добавляем новое поле валидации
+    validateErrors?: ValidateProfileError[];
 }
 
 /*

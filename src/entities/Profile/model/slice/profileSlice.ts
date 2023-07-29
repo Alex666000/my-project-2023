@@ -8,7 +8,6 @@ const initialState: ProfileSchema = {
     isLoading: false,
     error: undefined,
     data: undefined,
-    form: undefined,
 };
 
 export const profileSlice = createSlice({
@@ -20,6 +19,7 @@ export const profileSlice = createSlice({
         },
         cancelEdit: (state) => {
             state.readonly = true; // вернем форму в состояние для чтения
+            state.validateErrors = undefined; // очищаем ошибки при нажатии "Отмена"
             state.form = state.data; // присвоим то что получили с сервака - те сбрасываем все что навводили внутри инпута
         },
         updateProfile: (state, action: PayloadAction<Profile>) => { // обновляем весть Профиль - всю data что храним в стеите
@@ -63,11 +63,13 @@ export const profileSlice = createSlice({
                 state.data = action.payload;
                 state.form = action.payload;
                 state.readonly = true;
+                state.validateErrors = undefined; // обнуляем валидационные ошибки
             })
 
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload;
+                // state.error = action.payload;
+                state.validateErrors = action.payload; // обработали валидационные ошибки
             });
     },
 });

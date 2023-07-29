@@ -17,6 +17,7 @@ export interface BuildOptions {
     mode: BuildMode;
     paths: BuildPaths;
     isDev: boolean;
-    apiUrl: string
+    apiUrl: string // глобальная переменная урла сервера
     port: number;
+    project: 'storybook' | 'frontend' | 'jest'; // будем разделять среды в которых  у нас выполняется код
 }

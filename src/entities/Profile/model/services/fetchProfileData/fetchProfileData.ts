@@ -9,6 +9,11 @@ export const fetchProfileData = createAsyncThunk<Profile, void, ThunkConfig<stri
 
         try {
             const response = await extra.api.get<Profile>('/profile');
+
+            if (!response.data) { // заглушка тк сервер фейковый у нас - для тестов надо если данные не вернулись чтоб тест санки стрелял
+                throw new Error();
+            }
+
             return response.data; // вернули данные - а в экстраредюсере их получаем и присваиваем в стейт
         } catch (e) {
             console.log(e);
