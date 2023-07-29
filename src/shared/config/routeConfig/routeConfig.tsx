@@ -4,6 +4,10 @@ import { AboutPage } from 'pages/AboutPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
 
+export type AppRoutesProps = RouteProps & {
+    authOnly?: boolean; // если true то маршрут доступен только авторизованным  пользователям
+}
+
 export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
@@ -20,7 +24,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.NOT_FOUND]: '*',
 };
 
-export const routeConfig: Record<AppRoutes, RouteProps> = {
+export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
         element: <MainPage />,
@@ -32,6 +36,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,
         element: <ProfilePage />,
+        authOnly: true, // для профайла включаем приватный
     },
     // last
     [AppRoutes.NOT_FOUND]: {
@@ -42,4 +47,6 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
 
 /*
 - добавили маршрут - открываем браузер и смотрим что маршрут отрабатывает: http://localhost:3000/profile
+- делаем приватный маршрут для Профиля
+- далее идем в AppRouter - сделаем логику где не нужные маршруты отфильтровываем
  */

@@ -8,6 +8,7 @@ export enum ButtonTheme {
     CLEAR = 'clear', // без рамки
     CLEAR_INVERTED = 'clearInverted', //
     OUTLINE = 'outline', // тема с рамочкой
+    OUTLINE_RED = 'outline_red', // для кнопки "Отмена"
     BACKGROUND = 'background',
     BACKGROUND_INVERTED = 'backgroundInverted',
 }

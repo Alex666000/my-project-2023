@@ -9,6 +9,7 @@ export interface SidebarItemType {
     path: string // на который должна вести ссылка
     text: string
     Icon: React.VFC<React.SVGProps<SVGSVGElement>> // Компонент
+    authOnly?: boolean
 }
 
 // конфиг массива ссылок - потом идем на ui и по нему итерируемся
@@ -28,5 +29,6 @@ export const SidebarItemsList: SidebarItemType[] = [
         path: RoutePath.profile,
         Icon: ProfileIcon,
         text: 'Профиль',
+        authOnly: true,
     },
 ];
