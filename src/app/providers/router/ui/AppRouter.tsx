@@ -24,6 +24,7 @@ const AppRouter = () => {
     }, []);
 
     return (
+        // рендерим только для залогиненных разметку
         <Routes>
             {Object.values(routeConfig).map(renderWithWrapper)}
         </Routes>
