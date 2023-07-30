@@ -21,6 +21,7 @@ const userSlice = createSlice({
             if (user) {
                 // помещаем в стейт эти данные - распарсив обратно из строки в объект
                 state.authData = JSON.parse(user);
+                state._inited = true;
                 // Далее в самом корне приложения initAuthData будем вызывать в Арр идет в него -->
             }
         },

@@ -4,13 +4,13 @@ import { useTheme } from 'app/providers/ThemeProvider';
 import { AppRouter } from 'app/providers/router';
 import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
-import { useDispatch } from 'react-redux';
-import { userActions } from 'entities/User';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserInited, userActions } from 'entities/User';
 
 function App() {
     const { theme } = useTheme();
     const dispatch = useDispatch();
+    const inited = useSelector(getUserInited);
 
     // авторизация Юзера
     useEffect(() => {
@@ -25,7 +25,7 @@ function App() {
                 <Navbar />
                 <div className="content-page">
                     <Sidebar />
-                    <AppRouter />
+                    {inited && <AppRouter />}
                 </div>
             </Suspense>
         </div>
@@ -33,3 +33,7 @@ function App() {
 }
 
 export default App;
+
+/*
+{inited && <AppRouter />} - отрисовываем роутер когда данные о пользователе получены и мы точно знаем  залогинен он или нет
+ */
