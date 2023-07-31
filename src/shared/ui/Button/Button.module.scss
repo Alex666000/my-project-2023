@@ -2,6 +2,12 @@
     cursor: pointer;
     color: var(--primary-color);
     padding: 6px 15px;
+
+    &:hover {
+        opacity: 0.8; // видно что на кнопку навели она кликабельна
+        fill-opacity: 0.8; // если внутри иконка - иконка будет менять прозрачность
+        stroke-opacity: 0.8;
+    }
 }
 
 .clear {

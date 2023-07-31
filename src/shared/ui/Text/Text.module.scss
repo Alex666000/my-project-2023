@@ -1,11 +1,9 @@
 .title {
-    font: var(--font-l);
-    color: var(--primary-color); // более блеклые цвета
+    color: var(--primary-color);
 }
 
 .text {
-    font: var(--font-m);
-    color: var(--secondary-color); // яркии насыщенный
+    color: var(--secondary-color);
 }
 
 .error {
@@ -28,4 +26,25 @@
 
 .center {
     text-align: center;
+}
+
+// Такой стиль значит что внутри класса .size_m - класс .title - тк .size_m (лежит внутри mods в родительском блоке)
+.size_m {
+    .title {
+        font: var(--font-l);
+    }
+
+    .text {
+        font: var(--font-m);
+    }
+}
+
+.size_l {
+    .title {
+        font: var(--font-xl);
+    }
+
+    .text {
+        font: var(--font-l);
+    }
 }

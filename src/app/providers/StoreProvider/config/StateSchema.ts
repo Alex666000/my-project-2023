@@ -7,24 +7,27 @@ import {
 import { ProfileSchema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
 import { NavigateOptions, To } from 'react-router-dom';
+import { ArticleDetailsSchema } from 'entities/Article';
 
-// Типизируем store всего Арр
+// Типизируем store всего Арр:
 export interface StateSchema {
     // стейты конкретных сущностей
     counter: CounterSchema;
     user: UserSchema
 
-    // Асинхронные редюсеры (их удаляем из rootReducers в store.ts - ни не обязательны - в корневом редюсере оставляем только обязательные редюсеры)
+    // Асинхронные редюсеры -- (их удаляем из rootReducers в store.ts - не обязательны - в корневом редюсере оставляем только обязательные редюсеры)
     // Добавляем поля с таким-то типом:
-    loginForm?: LoginSchema // сделаем необязательным -  будем добавлять его асинхронно с помощью reducerManager
+    loginForm?: LoginSchema // сделаем необязательным -  редюсер будем добавлять его асинхронно с помощью reducerManager
     profile?: ProfileSchema
+    articleDetails?: ArticleDetailsSchema // необязательным поле делаем - редюсер будет асинхронным - потом подключаем редюсер
+    articleDetailsComments?: ArticleDetailsSchema
 
 }
 
 // 35 Видео:
 export type StateSchemaKey = keyof StateSchema
 
-// создаем тип для reducerManager
+// создаем тип для reducerManager:
 export interface ReducerManager {
     getReducerMap: () => ReducersMapObject<StateSchema>;
     reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>;
@@ -66,4 +69,9 @@ export interface ThunkConfig<T> {
 - loginForm?: LoginSchema // сделаем необязательным -  будем добавлять его асинхронно с помощью reducerManager --
 // Асинхронные редюсеры (их удаляем из rootReducers в store.ts - ни не обязательны)
 - экспортируем тип ReduxStoreWithManager из паблик апи
+------------------------------------------------------------------------------------------------------------------------------
+49 видео:
+- articleDetails?: ArticleDetailsSchema // необязательным поле делаем - редюсер будет асинхронным - потом подключаем редюсер с помощью DynamicModuleLoader
+на UI - в ArticleDetails
+
  */

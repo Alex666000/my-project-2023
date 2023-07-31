@@ -2,6 +2,7 @@ export interface User {
     id: string;
     username: string;
     // password на фронте не храним поэтому в схему не добавляем
+    avatar?: string // добавили новое поле в БД в объект users
 }
 
 // Сущность возвращаемая с бэкенда - тип для стейта

@@ -25,6 +25,8 @@
 .page-wrapper {
     // страничка растянется на всю ширину и соседнии Сайдбар никак сдвигать не будет
     flex-grow: 1;
-    padding: 20px;
-    color: var(--primary-color);
+    padding: 20px 20px 20px 45px;
+    height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    width: 100%;
 }
