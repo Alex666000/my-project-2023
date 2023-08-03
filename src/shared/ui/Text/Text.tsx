@@ -3,8 +3,8 @@ import { memo } from 'react';
 import cls from './Text.module.scss';
 
 export enum TextTheme {
-    PRIMARY = 'primary', // дефолтная тема
-    ERROR = 'error', // тема для ошибки
+    PRIMARY = 'primary',
+    ERROR = 'error',
 }
 
 export enum TextAlign {
@@ -20,10 +20,10 @@ export enum TextSize {
 
 interface TextProps {
     className?: string;
-    title?: string; // заголовок
-    text?: string; // описание к заголовку
+    title?: string;
+    text?: string;
     theme?: TextTheme;
-    align?: TextAlign; // выравнивается проп text а не title (без заголовка)
+    align?: TextAlign;
     size?: TextSize;
 }
 

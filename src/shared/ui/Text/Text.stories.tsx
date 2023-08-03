@@ -62,10 +62,3 @@ SizeL.args = {
     text: 'Description Description Description Description',
     size: TextSize.L,
 };
-export const SizeLDark = Template.bind({});
-SizeLDark.args = {
-    title: 'Title lorem ipsun',
-    text: 'Description Description Description Description',
-    size: TextSize.L,
-};
-SizeLDark.decorators = [ThemeDecorator(Theme.DARK)];

@@ -16,7 +16,7 @@ export default {
 
 const Template: ComponentStory<typeof ArticleDetails> = (args) => <ArticleDetails {...args} />;
 
-const article: Article = { // скопировали из БД обькт
+const article: Article = {
     id: '1',
     title: 'Javascript news',
     subtitle: 'Что нового в JS за 2022 год?',
@@ -54,10 +54,9 @@ const article: Article = { // скопировали из БД обькт
 
 export const Normal = Template.bind({});
 Normal.args = {};
-// обернули в декоратор тк компонента на UI использует state
 Normal.decorators = [StoreDecorator({
     articleDetails: {
-        data: article, // отрисуем статьи
+        data: article,
     },
 })];
 

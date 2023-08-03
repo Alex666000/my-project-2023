@@ -5,10 +5,10 @@ import {
 import cls from './Button.module.scss';
 
 export enum ButtonTheme {
-    CLEAR = 'clear', // без рамки
-    CLEAR_INVERTED = 'clearInverted', //
-    OUTLINE = 'outline', // тема с рамочкой
-    OUTLINE_RED = 'outline_red', // для кнопки "Отмена"
+    CLEAR = 'clear',
+    CLEAR_INVERTED = 'clearInverted',
+    OUTLINE = 'outline',
+    OUTLINE_RED = 'outline_red',
     BACKGROUND = 'background',
     BACKGROUND_INVERTED = 'backgroundInverted',
 }
@@ -19,12 +19,12 @@ export enum ButtonSize {
     XL = 'size_xl',
 }
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     className?: string;
     theme?: ButtonTheme;
-    square?: boolean; // square - дать возможность кнопки быть квадратной
+    square?: boolean;
     size?: ButtonSize;
-    disabled?: boolean
+    disabled?: boolean;
     children?: ReactNode;
 }
 
@@ -32,7 +32,7 @@ export const Button = memo((props: ButtonProps) => {
     const {
         className,
         children,
-        theme = '',
+        theme = ButtonTheme.OUTLINE,
         square,
         disabled,
         size = ButtonSize.M,
@@ -41,7 +41,7 @@ export const Button = memo((props: ButtonProps) => {
 
     const mods: Mods = {
         [cls[theme]]: true,
-        [cls.square]: square, // навешиваем класс square если true square
+        [cls.square]: square,
         [cls[size]]: true,
         [cls.disabled]: disabled,
     };

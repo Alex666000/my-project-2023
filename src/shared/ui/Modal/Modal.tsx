@@ -1,6 +1,7 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import React, {
-    MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState,
+    MutableRefObject,
+    ReactNode, useCallback, useEffect, useRef, useState,
 } from 'react';
 import { Portal } from 'shared/ui/Portal/Portal';
 import { useTheme } from 'app/providers/ThemeProvider';
@@ -11,7 +12,7 @@ interface ModalProps {
     children?: ReactNode;
     isOpen?: boolean;
     onClose?: () => void;
-    lazy?: boolean // должен подгружаться только тогда когда открывается модалка
+    lazy?: boolean;
 }
 
 const ANIMATION_DELAY = 300;
@@ -26,7 +27,7 @@ export const Modal = (props: ModalProps) => {
     } = props;
 
     const [isClosing, setIsClosing] = useState(false);
-    const [isMounted, setIsMounted] = useState(false); // вмонтирована модалка или нет
+    const [isMounted, setIsMounted] = useState(false);
     const timerRef = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>;
     const { theme } = useTheme();
 
@@ -92,10 +93,3 @@ export const Modal = (props: ModalProps) => {
         </Portal>
     );
 };
-
-/*
-- 32 видео 29 мин - фокус каретки не появляется исправляем + добавим возможность рендерится
-Модалки лениво - для того чтобы  когда в модалку будем помещать асинхронные компоненты - добавим проп lazy
-- lazy?: boolean // должен подгружаться только тогда когда открывается модалка - делаем чтобы уменьшить размер бандла
-
- */

@@ -1,32 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { validateProfileData } from 'entities/Profile/model/services/validateProfileData/validateProfileData';
 import { Profile, ValidateProfileError } from '../../types/profile';
 import { getProfileForm } from '../../selectors/getProfileForm/getProfileForm';
+import { validateProfileData } from '../validateProfileData/validateProfileData';
 
 export const updateProfileData = createAsyncThunk<
     Profile,
     void,
-    // ThunkConfig<string>
-    ThunkConfig<ValidateProfileError []> // в случае ошибки ожидаем теперь массив ValidateProfileError вместо строки...
+    ThunkConfig<ValidateProfileError[]>
     >(
         'profile/updateProfileData',
         async (_, thunkApi) => {
             const { extra, rejectWithValue, getState } = thunkApi;
 
-            // логика по сохранению данных профиля (селекторы в санках нельхя использовать - поэтому getState)
             const formData = getProfileForm(getState());
 
-            const errors = validateProfileData(formData); // валидируем formData
+            const errors = validateProfileData(formData);
 
             if (errors.length) {
-                return rejectWithValue(errors); // если ошибка валидация нашла то...
+                return rejectWithValue(errors);
             }
 
             try {
-                const response = await extra.api.put<Profile>('/profile', formData); // put - запрос на обновление данных
+                const response = await extra.api.put<Profile>(
+                    `/profile/${formData?.id}`,
+                    formData,
+                );
 
-                if (!response.data) { // заглушка тк сервер фейковый у нас - для тестов надо если данные не вернулись чтоб тест санки стрелял
+                if (!response.data) {
                     throw new Error();
                 }
 
@@ -37,8 +38,3 @@ export const updateProfileData = createAsyncThunk<
             }
         },
     );
-
-/*
-- после написания санки - идем писать экстраредюсеры в profileSlice
-(Санок может быть сколько угодно а слайс один!)
- */

@@ -1,3 +1,7 @@
+import { classNames } from 'shared/lib/classNames/classNames';
+import { useTranslation } from 'react-i18next';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { memo, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Text, TextAlign, TextSize } from 'shared/ui/Text/Text';
@@ -6,12 +10,9 @@ import { Avatar } from 'shared/ui/Avatar/Avatar';
 import EyeIcon from 'shared/assets/icons/eye-20-20.svg';
 import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg';
 import { Icon } from 'shared/ui/Icon/Icon';
-import { ArticleImageBlockComponent } from 'entities/Article/ui/ArticleImageBlockComponent/ArticleImageBlockComponent';
-import { memo, useCallback, useEffect } from 'react';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { useTranslation } from 'react-i18next';
 import { ArticleCodeBlockComponent } from 'entities/Article/ui/ArticleCodeBlockComponent/ArticleCodeBlockComponent';
-import { classNames } from 'shared/lib/classNames/classNames';
+import { ArticleImageBlockComponent } from 'entities/Article/ui/ArticleImageBlockComponent/ArticleImageBlockComponent';
+import { ArticleTextBlockComponent } from 'entities/Article/ui/ArticleTextBlockComponent/ArticleTextBlockComponent';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 import cls from './ArticleDetails.module.scss';
@@ -21,11 +22,10 @@ import {
     getArticleDetailsIsLoading,
 } from '../../model/selectors/articleDetails';
 import { ArticleBlock, ArticleBlockType } from '../../model/types/article';
-import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 
 interface ArticleDetailsProps {
     className?: string;
-    id?: string;
+    id: string;
 }
 
 const reducers: ReducersList = {
@@ -33,14 +33,13 @@ const reducers: ReducersList = {
 };
 
 export const ArticleDetails = memo((props: ArticleDetailsProps) => {
-    const { className, id } = props; // id принимаем снаружи
+    const { className, id } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getArticleDetailsIsLoading);
     const article = useSelector(getArticleDetailsData);
     const error = useSelector(getArticleDetailsError);
 
-    // в зависимости от типа блока рисовались разные окмпоненты
     const renderBlock = useCallback((block: ArticleBlock) => {
         switch (block.type) {
         case ArticleBlockType.CODE:
@@ -74,17 +73,15 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
 
     useEffect(() => {
         if (__PROJECT__ !== 'storybook') {
-            dispatch(fetchArticleById(id ?? ''));
+            dispatch(fetchArticleById(id));
         }
     }, [dispatch, id]);
 
     let content;
-    // тк компонент обернут в DynamicModuleLoader - то эту часть оставляем не изменной а содержимое
-    // разметки будет динамическим его будем менять в зависимости от условия
+
     if (isLoading) {
-        content = ( // рисуем Скелетон
+        content = (
             <>
-                {/* аватарка - border="50%" - означает круглая ава "круг" */}
                 <Skeleton className={cls.avatar} width={200} height={200} border="50%" />
                 <Skeleton className={cls.title} width={300} height={32} />
                 <Skeleton className={cls.skeleton} width={600} height={24} />
@@ -93,14 +90,14 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
             </>
         );
     } else if (error) {
-        content = ( // отрисовываем ошибку
+        content = (
             <Text
                 align={TextAlign.CENTER}
                 title={t('Произошла ошибка при загрузке статьи.')}
             />
         );
     } else {
-        content = ( // отрисовываем основной контент
+        content = (
             <>
                 <div className={cls.avatarWrapper}>
                     <Avatar
@@ -118,7 +115,6 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
                 <div className={cls.articleInfo}>
                     <Icon className={cls.icon} Svg={EyeIcon} />
                     <Text text={String(article?.views)} />
-                    {/* Преобразовывает в строку тк Text умеет только со строками работать */}
                 </div>
                 <div className={cls.articleInfo}>
                     <Icon className={cls.icon} Svg={CalendarIcon} />
@@ -135,17 +131,5 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
                 {content}
             </div>
         </DynamicModuleLoader>
-
     );
 });
-
-/*
-46 видео:
-- Обернули компонент в DynamicModuleLoader - пробросили редюсер для его подключения асинхронно
-removeAfterUnmount -  редюсер после выхода со страницы просмотра статьи редюсер удаляем тк на статью можем и не вернутся
-- делаем санку с помощью которой статью будем получать
-- создаем селекторы и пользуемся ими - пишем разметку с помощью которой все эти полученные состояния обработаем
------------------------------------------------------------------------------------------------------------------
-- ArticleDetails - непереиспользуемый компонент тк сы берем состояние из стейта через селекторы - а чтобы сделать переиспользуемым надо только
- в пропсах данные получать
- */

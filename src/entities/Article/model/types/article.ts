@@ -4,8 +4,6 @@ export enum ArticleBlockType {
     TEXT = 'TEXT',
 }
 
-// базовый тип от которого будут наследоваться все остальные - убираем дублирование - общие
-// свойства переносим сюда d type
 export interface ArticleBlockBase {
     id: string;
     type: ArticleBlockType;
@@ -28,7 +26,6 @@ export interface ArticleTextBlock extends ArticleBlockBase {
     title?: string;
 }
 
-// 1 объединяющий блок: содержит 3 типа блоков из которых строится наша статья
 export type ArticleBlock = ArticleCodeBlock | ArticleImageBlock | ArticleTextBlock;
 
 export enum ArticleType {
@@ -47,10 +44,3 @@ export interface Article {
     type: ArticleType[];
     blocks: ArticleBlock[];
 }
-
-/*
-- создаем типы для получаемой сущности с БД (сервера), отрисовываем сущность на странице в слайсе pages
-- создаем тип для Схемы - выносим его рядом
-- потом создаем слайс
-
- */

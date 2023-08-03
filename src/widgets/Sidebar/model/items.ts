@@ -6,16 +6,13 @@ import ProfileIcon from 'shared/assets/icons/profile-20-20.svg';
 import ArticleIcon from 'shared/assets/icons/article-20-20.svg';
 
 export interface SidebarItemType {
-    // Эти пропсы содержимое разметки AppLink
-    path: string // на который должна вести ссылка
-    text: string
-    Icon: React.VFC<React.SVGProps<SVGSVGElement>> // Компонент
-    authOnly?: boolean
+    path: string;
+    text: string;
+    Icon: React.VFC<React.SVGProps<SVGSVGElement>>;
+    authOnly?: boolean;
 }
 
-// конфиг массива ссылок - потом идем на ui и по нему итерируемся
 export const SidebarItemsList: SidebarItemType[] = [
-    // Объекты ведут на соответствующие страницы
     {
         path: RoutePath.main,
         Icon: MainIcon,

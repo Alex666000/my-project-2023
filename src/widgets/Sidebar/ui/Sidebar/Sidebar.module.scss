@@ -1,4 +1,3 @@
-// Основные классы
 .Sidebar {
     height: calc(100vh - var(--navbar-height));
     width: var(--sidebar-width);
@@ -17,7 +16,6 @@
 
 .lang {
     margin-left: 20px;
-    color: var(--inverted-primary-color);
 }
 
 .collapseBtn {
@@ -28,15 +26,14 @@
 
 .items {
     margin-top: 20px;
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
 }
 
 .collapsed {
     width: var(--sidebar-width-collapsed);
 
-    // Переопределяем стили основных классов выше: .switchers и .lang
     .switchers {
         flex-direction: column;
         align-items: center;

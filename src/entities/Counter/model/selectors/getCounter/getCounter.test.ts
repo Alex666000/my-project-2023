@@ -2,14 +2,10 @@ import { StateSchema } from 'app/providers/StoreProvider';
 import { getCounter } from './getCounter';
 
 describe('getCounter', () => {
-    test('Ожидаем что вернет нужный участок стейта - объект', () => {
+    test('should return counter value', () => {
         const state: DeepPartial<StateSchema> = {
             counter: { value: 10 },
         };
         expect(getCounter(state as StateSchema)).toEqual({ value: 10 });
     });
 });
-
-/*
-DeepPartial - не обязательно все поля - позволяет проигнорировать те поля которые не нужны - чаще всего используеся в тестах
- */

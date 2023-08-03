@@ -1,30 +1,25 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { ThemeSwitcher } from 'shared/ui/ThemeSwitcher';
 import { LangSwitcher } from 'shared/ui/LangSwitcher/LangSwitcher';
 import { Button, ButtonSize, ButtonTheme } from 'shared/ui/Button/Button';
-import { useTranslation } from 'react-i18next';
-import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import AboutIcon from 'shared/assets/icons/about-20-20.svg';
-import MainIcon from 'shared/assets/icons/main-20-20.svg';
-import { SidebarItemsList } from 'widgets/Sidebar/model/items';
-import { SidebarItem } from 'widgets/Sidebar/ui/Sidebar/SidebarItem/SidebarItem';
+import { useSelector } from 'react-redux';
+import { getUserAuthData } from 'entities/User';
 import cls from './Sidebar.module.scss';
+import { SidebarItemsList } from '../../model/items';
+import { SidebarItem } from '../SidebarItem/SidebarItem';
 
 interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar = ({ className }: SidebarProps) => {
+export const Sidebar = memo(({ className }: SidebarProps) => {
     const [collapsed, setCollapsed] = useState(false);
-    const { t } = useTranslation();
 
     const onToggle = () => {
         setCollapsed((prev) => !prev);
     };
 
-    // замемоизировали итерацию + убрали лишние перерисовки
     const itemsList = useMemo(() => SidebarItemsList.map((item) => (
         <SidebarItem
             item={item}
@@ -60,4 +55,4 @@ export const Sidebar = ({ className }: SidebarProps) => {
             </div>
         </div>
     );
-};
+});

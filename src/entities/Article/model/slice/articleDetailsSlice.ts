@@ -35,8 +35,3 @@ export const articleDetailsSlice = createSlice({
 
 export const { actions: articleDetailsActions } = articleDetailsSlice;
 export const { reducer: articleDetailsReducer } = articleDetailsSlice;
-
-/*
-- ArticleDetailsSchema - добавить в Схему всего  - StateSchema + там сделаем редюсер асинхронным (перед этим ее в паблик апи...)
-- Используем санку на UI
- */

@@ -3,7 +3,11 @@
     margin-bottom: 20px;
 
     .editBtn {
-        margin-left: auto; // раскидает 2 элемента Текст и кнопку по разным краям тносительно лева...
+        margin-left: auto;
         margin-right: 10px;
     }
+}
+
+.btnsWrapper{
+    margin-left: auto;
 }

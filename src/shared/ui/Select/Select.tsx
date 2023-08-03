@@ -3,7 +3,7 @@ import { ChangeEvent, memo, useMemo } from 'react';
 import cls from './Select.module.scss';
 
 export interface SelectOption {
-    value: string; // значение опции
+    value: string;
     content: string;
 }
 
@@ -12,7 +12,7 @@ interface SelectProps {
     label?: string;
     options?: SelectOption[];
     value?: string;
-    onChange?: (value: string) => void; // выбрали опцию и ее надо отобразить
+    onChange?: (value: string) => void;
     readonly?: boolean;
 }
 

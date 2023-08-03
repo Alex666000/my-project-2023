@@ -2,21 +2,23 @@ import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { Text, TextAlign, TextTheme } from 'shared/ui/Text/Text';
 import { Input } from 'shared/ui/Input/Input';
-import { Profile } from 'entities/Profile';
 import { Loader } from 'shared/ui/Loader/Loader';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
-import { Currency, CurrencySelect } from 'entities/Currency';
-import { Country, CountrySelect } from 'entities/Country';
+import { Currency } from 'entities/Currency/model/types/currency';
+import { CurrencySelect } from 'entities/Currency';
+import { Country } from 'entities/Country/model/types/country';
+import { CountrySelect } from 'entities/Country';
 import cls from './ProfileCard.module.scss';
+import { Profile } from '../../model/types/profile';
 
 interface ProfileCardProps {
     className?: string;
     data?: Profile;
-    isLoading?: boolean;
     error?: string;
+    isLoading?: boolean;
     readonly?: boolean;
-    onChangeFirstName?: (value?: string) => void;
-    onChangeLastName?: (value?: string) => void;
+    onChangeLastname?: (value?: string) => void;
+    onChangeFirstname?: (value?: string) => void;
     onChangeCity?: (value?: string) => void;
     onChangeAge?: (value?: string) => void;
     onChangeUsername?: (value?: string) => void;
@@ -24,21 +26,22 @@ interface ProfileCardProps {
     onChangeCurrency?: (currency: Currency) => void;
     onChangeCountry?: (country: Country) => void;
 }
+
 export const ProfileCard = (props: ProfileCardProps) => {
     const {
         className,
         data,
-        error,
         isLoading,
+        error,
         readonly,
-        onChangeLastName,
-        onChangeFirstName,
-        onChangeCity,
+        onChangeFirstname,
+        onChangeLastname,
         onChangeAge,
-        onChangeUsername,
+        onChangeCity,
         onChangeAvatar,
-        onChangeCurrency,
+        onChangeUsername,
         onChangeCountry,
+        onChangeCurrency,
     } = props;
 
     const { t } = useTranslation('profile');
@@ -65,8 +68,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
     }
 
     const mods: Mods = {
-        [cls.editing]: !readonly, // в момент когда изменяем форму повесим класс editing (инверсия readonly)
-        // просто меняем цвет рамки для имитации - в зависимости от флага readonly можем менять визуальное отображение формы
+        [cls.editing]: !readonly,
     };
 
     return (
@@ -77,19 +79,18 @@ export const ProfileCard = (props: ProfileCardProps) => {
                         <Avatar src={data?.avatar} />
                     </div>
                 )}
-
                 <Input
-                    value={data?.first} // то что на UX отображается текст что ввели
+                    value={data?.first}
                     placeholder={t('Ваше имя')}
                     className={cls.input}
-                    onChange={onChangeFirstName}
+                    onChange={onChangeFirstname}
                     readonly={readonly}
                 />
                 <Input
                     value={data?.lastname}
                     placeholder={t('Ваша фамилия')}
                     className={cls.input}
-                    onChange={onChangeLastName}
+                    onChange={onChangeLastname}
                     readonly={readonly}
                 />
                 <Input
@@ -136,8 +137,3 @@ export const ProfileCard = (props: ProfileCardProps) => {
         </div>
     );
 };
-
-/*
-- Экспортируем из паблик апи этот компонент и добавляем на ProfilePage
-- достали стейт селектором и отрисовываем данные в разметке
- */

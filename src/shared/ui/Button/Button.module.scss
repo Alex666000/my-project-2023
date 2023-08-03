@@ -4,8 +4,8 @@
     padding: 6px 15px;
 
     &:hover {
-        opacity: 0.8; // видно что на кнопку навели она кликабельна
-        fill-opacity: 0.8; // если внутри иконка - иконка будет менять прозрачность
+        opacity: 0.8;
+        fill-opacity: 0.8;
         stroke-opacity: 0.8;
     }
 }
@@ -25,7 +25,6 @@
     color: var(--inverted-primary-color);
 }
 
-// кнопка с рамкой, но без раднего фона
 .outline {
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
@@ -40,13 +39,13 @@
 
 .background {
     background: var(--bg-color);
-    color: var(--primary-color); // цвет шрифта
+    color: var(--primary-color);
     border: none;
 }
 
 .backgroundInverted {
     background: var(--inverted-bg-color);
-    color: var(--inverted-primary-color); // цвет шрифта
+    color: var(--inverted-primary-color);
     border: none;
 }
 
@@ -54,23 +53,19 @@
     padding: 0;
 }
 
-// Если используются 2 класса совместно
 .square.size_m {
     width: var(--font-line-m);
     height: var(--font-line-m);
-    font: var(--font-m);
 }
 
 .square.size_l {
     width: var(--font-line-l);
     height: var(--font-line-l);
-    font: var(--font-l);
 }
 
 .square.size_xl {
     width: var(--font-line-xl);
     height: var(--font-line-xl);
-    font: var(--font-xl);
 }
 
 .size_m {

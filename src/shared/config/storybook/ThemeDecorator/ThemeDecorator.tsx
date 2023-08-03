@@ -8,7 +8,3 @@ export const ThemeDecorator = (theme: Theme) => (StoryComponent: Story) => (
         </div>
     </ThemeProvider>
 );
-
-/*
-Сюда передаем аргементом тему из файла preview.js
- */

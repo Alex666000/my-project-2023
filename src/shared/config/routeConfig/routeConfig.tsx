@@ -3,14 +3,13 @@ import { MainPage } from 'pages/MainPage';
 import { AboutPage } from 'pages/AboutPage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ProfilePage } from 'pages/ProfilePage';
-import ArticlesPage from 'pages/ArticlesPage/ui/ArticlesPage/ArticlesPage';
-import { ArticleDetailsPage } from 'pages/ArticlesDetailsPage';
+import { ArticlesPage } from 'pages/ArticlesPage';
+import { ArticleDetailsPage } from 'pages/ArticleDetailsPage';
 
 export type AppRoutesProps = RouteProps & {
-    authOnly?: boolean; // если true то маршрут доступен только авторизованным  пользователям
+    authOnly?: boolean;
 }
 
-// типы (перечисления) для новых маршрутов
 export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
@@ -21,19 +20,16 @@ export enum AppRoutes {
     NOT_FOUND = 'not_found',
 }
 
-// пути для новых маршрутов
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     [AppRoutes.ABOUT]: '/about',
-    [AppRoutes.PROFILE]: '/profile',
+    [AppRoutes.PROFILE]: '/profile/', // +id -- поэтому после профил ставим слеш...
     [AppRoutes.ARTICLES]: '/articles',
-    [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id  -- добавляем id статьи которую мы просматриваем -
-    // комментом покажем что должен быть id - его добавим ниже
-    // последний...
+    [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + :id
+    // последний
     [AppRoutes.NOT_FOUND]: '*',
 };
 
-// Объект по которому пробегаемся на UI и отрисовываем нужный компонент
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
@@ -44,9 +40,9 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AboutPage />,
     },
     [AppRoutes.PROFILE]: {
-        path: RoutePath.profile,
+        path: `${RoutePath.profile}:id`, // по мимо основного маршрута на вход ожидаем еще + id
         element: <ProfilePage />,
-        authOnly: true, // для профайла включаем приватный что маршрут (не для всех...только для зареганных...)
+        authOnly: true,
     },
     [AppRoutes.ARTICLES]: {
         path: RoutePath.articles,
@@ -54,7 +50,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
     },
     [AppRoutes.ARTICLE_DETAILS]: {
-        path: `${RoutePath.article_details}:id`, // динамически указываем id статьи в строке запроса  и эту статью получим
+        path: `${RoutePath.article_details}:id`,
         element: <ArticleDetailsPage />,
         authOnly: true,
     },
@@ -64,11 +60,3 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <NotFoundPage />,
     },
 };
-
-/*
-- Тут обновляем конфиг роута после того как создали страницы, сделали их асинхронными компонентами потом тут обновляем конфиг
-чтобы могли на страницы переходить
-- добавили маршрут - открываем браузер и смотрим что маршрут отрабатывает: http://localhost:3000/profile
-- делаем приватный маршрут для Профиля
-- далее идем в AppRouter - сделаем логику где не нужные маршруты отфильтровываем
- */

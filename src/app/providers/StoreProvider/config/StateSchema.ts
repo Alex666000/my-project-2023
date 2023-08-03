@@ -8,6 +8,7 @@ import { ProfileSchema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
 import { NavigateOptions, To } from 'react-router-dom';
 import { ArticleDetailsSchema } from 'entities/Article';
+import { AddCommentFormSchema } from 'features/addCommentForm';
 
 // Типизируем store всего Арр:
 export interface StateSchema {
@@ -21,7 +22,7 @@ export interface StateSchema {
     profile?: ProfileSchema
     articleDetails?: ArticleDetailsSchema // необязательным поле делаем - редюсер будет асинхронным - потом подключаем редюсер
     articleDetailsComments?: ArticleDetailsSchema
-
+    addCommentForm?: AddCommentFormSchema
 }
 
 // 35 Видео:

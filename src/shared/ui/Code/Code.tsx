@@ -13,7 +13,7 @@ export const Code = memo((props: CodeProps) => {
     const { className, text } = props;
 
     const onCopy = useCallback(() => {
-        navigator.clipboard.writeText(text); // текст который хотим в браузере скопировать
+        navigator.clipboard.writeText(text);
     }, [text]);
 
     return (

@@ -11,11 +11,9 @@
     border: none;
     outline: none;
     width: 100%;
-    // убираем браузерную каретку инпута
     color: transparent;
     text-shadow: 0 0 0 var(--primary-color);
 
-    // отключаем своиство браузера при фокусе убираем outline
     &:focus {
         outline: none;
     }
@@ -33,7 +31,6 @@
     bottom: 0;
     left: 0;
     position: absolute;
-    // анимация - infinite: бесконечная анимация
     animation: blink 0.7s forwards infinite;
 }
 
@@ -41,7 +38,6 @@
     opacity: 0.7;
 }
 
-// анимация
 @keyframes blink {
     0% {
         opacity: 0;

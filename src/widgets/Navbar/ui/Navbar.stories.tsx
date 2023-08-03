@@ -1,12 +1,12 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Theme } from 'app/providers/ThemeProvider';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
+import { Theme } from 'app/providers/ThemeProvider';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Navbar } from './Navbar';
 
 export default {
-    // Компонент для  которой делаем истории
     title: 'widget/Navbar',
     component: Navbar,
     argTypes: {
@@ -16,18 +16,15 @@ export default {
 
 const Template: ComponentStory<typeof Navbar> = (args) => <Navbar {...args} />;
 
-// История для светлого Navbar
 export const Light = Template.bind({});
-Light.args = { };
-Light.decorators = [StoreDecorator({})];
+Light.args = {};
+Light.decorators = [StoreDecorator({
 
-// История для тёмного Navbar
+})];
 export const Dark = Template.bind({});
-Dark.args = { };
-// Добавим декоратор для темы для конкретной истории
+Dark.args = {};
 Dark.decorators = [ThemeDecorator(Theme.DARK), StoreDecorator({})];
 
-// Состояние когда полбзователь авторизован
 export const AuthNavbar = Template.bind({});
 AuthNavbar.args = {};
 AuthNavbar.decorators = [StoreDecorator({
