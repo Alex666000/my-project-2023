@@ -14,10 +14,6 @@ export const parameters = {
     },
 };
 
-// Тут добавляются Декораторы глобально - порядок не важен
 addDecorator(StyleDecorator);
 addDecorator(ThemeDecorator(Theme.LIGHT));
 addDecorator(RouterDecorator);
-/*
-- Функция addDecorator() - обертка, глобально оборачивает каждый сторибук компонент
- */

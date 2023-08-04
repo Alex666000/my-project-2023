@@ -10,14 +10,14 @@ export interface BuildPaths {
 export interface BuildEnv {
     mode: BuildMode;
     port: number;
-    apiUrl: string
+    apiUrl: string;
 }
 
 export interface BuildOptions {
     mode: BuildMode;
     paths: BuildPaths;
     isDev: boolean;
-    apiUrl: string // глобальная переменная урла сервера
     port: number;
-    project: 'storybook' | 'frontend' | 'jest'; // будем разделять среды в которых  у нас выполняется код
+    apiUrl: string;
+    project: 'storybook' | 'frontend' | 'jest';
 }

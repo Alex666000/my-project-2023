@@ -16,14 +16,14 @@ interface ProfilePageHeaderProps {
 }
 
 export const ProfilePageHeader = (props: ProfilePageHeaderProps) => {
-    const { className } = props;
+    const {
+        className,
+    } = props;
 
     const { t } = useTranslation('profile');
-
     const authData = useSelector(getUserAuthData);
     const profileData = useSelector(getProfileData);
     const canEdit = authData?.id === profileData?.id;
-
     const readonly = useSelector(getProfileReadonly);
     const dispatch = useAppDispatch();
 

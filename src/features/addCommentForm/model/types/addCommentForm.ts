@@ -1,4 +1,4 @@
-export interface AddCommentFormSchema { // кусок стейта
-    text?: string
-    error?: string
+export interface AddCommentFormSchema {
+    text?: string;
+    error?: string;
 }

@@ -3,8 +3,8 @@ import { ThunkConfig } from 'app/providers/StoreProvider';
 import { Profile } from '../../types/profile';
 
 export const fetchProfileData = createAsyncThunk<
-    Profile, // принимаем с сервера данные такие...
-    string, // отправляем на сервер аргументы
+    Profile,
+    string,
     ThunkConfig<string>
     >(
         'profile/fetchProfileData',
@@ -17,11 +17,10 @@ export const fetchProfileData = createAsyncThunk<
                 if (!response.data) {
                     throw new Error();
                 }
-                console.log(response.data);
 
                 return response.data;
             } catch (e) {
-                console.log('Попали в catch ');
+                console.log(e);
                 return rejectWithValue('error');
             }
         },

@@ -24,6 +24,7 @@ const article: Article = {
     views: 1022,
     createdAt: '26.02.2022',
     type: [ArticleType.IT],
+    user: { id: '1', username: 'sss', avatar: 'ddd' },
     blocks: [
         {
             id: '1',
@@ -50,7 +51,7 @@ const article: Article = {
             ],
         },
     ],
-};
+} as any;
 
 export const Normal = Template.bind({});
 Normal.args = {};

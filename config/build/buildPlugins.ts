@@ -18,7 +18,6 @@ export function buildPlugins({
             chunkFilename: 'css/[name].[contenthash:8].css',
         }),
         new webpack.DefinePlugin({
-            // добавляем глобальные переменные - потом добавляем в вебпак конфиг сторибука тоже самое
             __IS_DEV__: JSON.stringify(isDev),
             __API__: JSON.stringify(apiUrl),
             __PROJECT__: JSON.stringify(project),
