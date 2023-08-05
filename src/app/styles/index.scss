@@ -21,12 +21,3 @@
     display: flex;
 }
 
-// Так как Арр рисует <AppRouter/> то его классы задаем в файле стилей Арр!
-.page-wrapper {
-    // страничка растянется на всю ширину и соседнии Сайдбар никак сдвигать не будет
-    flex-grow: 1;
-    padding: 20px 20px 20px 45px;
-    height: calc(100vh - var(--navbar-height));
-    overflow-y: auto;
-    flex-shrink: 100;
-}
