@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
+import { Comment } from 'entities/Comment';
 import { Article } from 'entities/Article';
 import { getArticlesPageLimit } from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
 
 interface FetchArticlesListProps {
-    page?: number
+    page?: number;
 }
 
 export const fetchArticlesList = createAsyncThunk<
@@ -20,10 +21,11 @@ export const fetchArticlesList = createAsyncThunk<
 
             try {
                 const response = await extra.api.get<Article[]>('/articles', {
-                    params: { // как "квери параметры" - как параметры строки запроса
+                    params: {
                         _expand: 'user',
                         _limit: limit,
-                    }, // бэк вернет нужную порцию данных...
+                        _page: page,
+                    },
                 });
 
                 if (!response.data) {

@@ -46,6 +46,3 @@ export const ArticleListItemSkeleton = memo((props: ArticleListItemSkeletonProps
         </div>
     );
 });
-/*
-Для Скелетонов классы оставляем от компонент которых они имитируют а для аватарки класс не обязателен
- */

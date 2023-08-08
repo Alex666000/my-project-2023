@@ -15,14 +15,12 @@ const AppRouter = () => {
             <Route
                 key={route.path}
                 path={route.path}
-                // добавляем защиту - обертку которая проверяет авторизован ли пользователь или нет
                 element={route.authOnly ? <RequireAuth>{element}</RequireAuth> : element}
             />
         );
     }, []);
 
     return (
-        // рендерим только для залогиненных разметку
         <Routes>
             {Object.values(routeConfig).map(renderWithWrapper)}
         </Routes>

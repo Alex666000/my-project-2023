@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import { articlesPageActions } from 'pages/ArticlesPage/model/slice/articlesPageSlice';
 import {
     getArticlesPageHasMore,
     getArticlesPageIsLoading,
     getArticlesPageNum,
 } from '../../selectors/articlesPageSelectors';
+import { articlesPageActions } from '../../slices/articlesPageSlice';
 import { fetchArticlesList } from '../fetchArticlesList/fetchArticlesList';
 
 export const fetchNextArticlesPage = createAsyncThunk<
@@ -28,6 +28,3 @@ export const fetchNextArticlesPage = createAsyncThunk<
             }
         },
     );
-/*
-Подгружает не первоначальную порцию данных а следующую
- */

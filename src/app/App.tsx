@@ -12,14 +12,11 @@ function App() {
     const dispatch = useDispatch();
     const inited = useSelector(getUserInited);
 
-    // авторизация Юзера
     useEffect(() => {
         dispatch(userActions.initAuthData());
     }, [dispatch]);
-    // Далее если пользователь авторизован надо кнопку скрывать "Воити" идем в Navbar  -->...
 
     return (
-        // дополнительным классом навешивается тема
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback="">
                 <Navbar />
@@ -33,7 +30,3 @@ function App() {
 }
 
 export default App;
-
-/*
-{inited && <AppRouter />} - отрисовываем роутер когда данные о пользователе получены и мы точно знаем  залогинен он или нет
- */

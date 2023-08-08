@@ -1,23 +1,20 @@
-@import "./reset";
-@import "./variables/global";
-@import "./themes/normal";
-@import "./themes/dark";
-@import "./themes/orange";
+@import "reset";
+@import "variables/global";
+@import "themes/normal";
+@import "themes/dark";
+@import "themes/orange";
 
-// .app_modal - повесим на саму модалку
 .app,
-.app_modal { // Опишем свойства Арр по умолчанию:
-    font: var(--font-m); // Шрифт (объединяющий) по умолчанию будет использоваться во всех текстах приложения
+.app_modal {
+    font: var(--font-m);
     color: var(--primary-color);
 }
 
 .app {
-    // Подключаем переменные по умолчанию во всем Арр - из обоих файлов с темами:
     background: var(--bg-color);
-    min-height: 100vh; // Минимальный размер приложения
+    min-height: 100vh;
 }
 
 .content-page {
     display: flex;
 }
-

@@ -9,10 +9,10 @@ import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import cls from './ArticleListItem.module.scss';
 import {
     Article, ArticleBlockType, ArticleTextBlock, ArticleView,
 } from '../../model/types/article';
-import cls from './ArticleListItem.module.scss';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 
 interface ArticleListItemProps {
@@ -45,7 +45,7 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
 
         return (
             <div className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}>
-                <Card>
+                <Card className={cls.card}>
                     <div className={cls.header}>
                         <Avatar size={30} src={article.user.avatar} />
                         <Text text={article.user.username} className={cls.username} />
@@ -53,13 +53,12 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
                     </div>
                     <Text title={article.title} className={cls.title} />
                     {types}
-                    <img src={article.img} alt={article.title} className={cls.img} />
-                    <ArticleTextBlockComponent block={textBlock} className={cls.textBlock} />
+                    <img src={article.img} className={cls.img} alt={article.title} />
+                    {textBlock && (
+                        <ArticleTextBlockComponent block={textBlock} className={cls.textBlock} />
+                    )}
                     <div className={cls.footer}>
-                        <Button
-                            theme={ButtonTheme.OUTLINE}
-                            onClick={onOpenArticle}
-                        >
+                        <Button onClick={onOpenArticle} theme={ButtonTheme.OUTLINE}>
                             {t('Читать далее...')}
                         </Button>
                         {views}
@@ -85,12 +84,3 @@ export const ArticleListItem = memo((props: ArticleListItemProps) => {
         </div>
     );
 });
-
-/*
-view - передаем класс либо BID SMALL сверху в пропсах принимает аж от ArticlesPage
-
-export enum ArticleView {
-    BIG = 'BIG',
-    SMALL = 'SMALL',
-}
- */

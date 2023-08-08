@@ -94,7 +94,6 @@ const article = {
     ],
 } as Article;
 
-// Скелетон
 export const LoadingBig = Template.bind({});
 LoadingBig.args = {
     articles: [],
@@ -102,7 +101,6 @@ LoadingBig.args = {
     view: ArticleView.BIG,
 };
 
-// Скелетон
 export const LoadingSmall = Template.bind({});
 LoadingSmall.args = {
     articles: [],
@@ -112,11 +110,11 @@ LoadingSmall.args = {
 
 export const ListSmall = Template.bind({});
 ListSmall.args = {
-    articles: new Array(9) // 9 элементов массива заполняем нулями...
+    articles: new Array(9)
         .fill(0)
         .map((item, index) => ({
             ...article,
-            id: String(index), // для каждого элемента добавляем id
+            id: String(index),
         })),
     isLoading: false,
     view: ArticleView.SMALL,

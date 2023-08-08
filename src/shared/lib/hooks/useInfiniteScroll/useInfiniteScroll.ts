@@ -1,9 +1,9 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 
 export interface UseInfiniteScrollOptions {
-    callback?: () => void; // колбек - вызовется когда пересекли элемент
-    triggerRef: MutableRefObject<HTMLElement>; // пересекли элемент на котором этот реф и вызвали колбек
-    wrapperRef: MutableRefObject<HTMLElement>; // внутри него скролл - Page у нас...
+    callback?: () => void;
+    triggerRef: MutableRefObject<HTMLElement>;
+    wrapperRef: MutableRefObject<HTMLElement>;
 }
 
 export function useInfiniteScroll({ callback, wrapperRef, triggerRef }: UseInfiniteScrollOptions) {
@@ -15,12 +15,12 @@ export function useInfiniteScroll({ callback, wrapperRef, triggerRef }: UseInfin
 
         if (callback) {
             const options = {
-                root: wrapperElement, // элемент в котором скролл
+                root: wrapperElement,
                 rootMargin: '0px',
                 threshold: 1.0,
             };
 
-            observer.current = new IntersectionObserver(([entry]) => { // колбек вызовется в тот момент  когда на экране появился элемент за которым мы следим
+            observer.current = new IntersectionObserver(([entry]) => {
                 if (entry.isIntersecting) {
                     callback();
                 }
@@ -37,7 +37,3 @@ export function useInfiniteScroll({ callback, wrapperRef, triggerRef }: UseInfin
         };
     }, [callback, triggerRef, wrapperRef]);
 }
-
-/*
-entry - массив элементов за которыми наблюдаем
- */

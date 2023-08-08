@@ -3,20 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
 import { ArticleList, ArticleView, ArticleViewSelector } from 'entities/Article';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useSelector } from 'react-redux';
-import {
-    getArticlesPageError, getArticlesPageHasMore,
-    getArticlesPageIsLoading,
-    getArticlesPageNum,
-    getArticlesPageView,
-} from 'pages/ArticlesPage/model/selectors/articlesPageSelectors';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Page } from 'shared/ui/Page/Page';
-import { fetchNextArticlesPage } from 'pages/ArticlesPage/model/services/fetchNextArticlesPage/fetchNextArticlesPage';
-import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
+import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
+import { articlesPageActions, articlesPageReducer, getArticles } from '../../model/slices/articlesPageSlice';
 import cls from './ArticlesPage.module.scss';
-import { articlesPageActions, articlesPageReducer, getArticles } from '../../model/slice/articlesPageSlice';
+import {
+    getArticlesPageError,
+    getArticlesPageIsLoading,
+    getArticlesPageView,
+} from '../../model/selectors/articlesPageSelectors';
 
 interface ArticlesPageProps {
     className?: string;
@@ -30,7 +29,6 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const { className } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    // данные которые получили с сервака - получили на UI селекторами и прокидываем в ArticleList
     const articles = useSelector(getArticles.selectAll);
     const isLoading = useSelector(getArticlesPageIsLoading);
     const view = useSelector(getArticlesPageView);
@@ -40,27 +38,16 @@ const ArticlesPage = (props: ArticlesPageProps) => {
         dispatch(articlesPageActions.setView(view));
     }, [dispatch]);
 
-    /*   УНЕСЛИ В САНКУ ВСЮ ЛОГИКУ:
-     const onLoadNextPart = useCallback(() => {
-        if (hasMore && !isLoading) { // если данные на сервере еще есть + чтоб запрос не отправлялся в момент загрузки данных
-            dispatch(articlesPageActions.setPage(page + 1));
-            dispatch(fetchArticlesList({ page: page + 1 }));
-        }
-    }, [dispatch, hasMore, isLoading, page]); */
-
     const onLoadNextPart = useCallback(() => {
         dispatch(fetchNextArticlesPage());
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(articlesPageActions.initState());
-        dispatch(fetchArticlesList({
-            page: 1,
-        }));
+        dispatch(initArticlesPage());
     });
 
     return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <Page
                 onScrollEnd={onLoadNextPart}
                 className={classNames(cls.ArticlesPage, {}, [className])}
@@ -73,7 +60,6 @@ const ArticlesPage = (props: ArticlesPageProps) => {
                 />
             </Page>
         </DynamicModuleLoader>
-
     );
 };
 

@@ -14,10 +14,10 @@ export default {
 
 const Template: ComponentStory<typeof ArticleListItem> = (args) => <ArticleListItem {...args} />;
 
-const article = { // вынесли для удобства в переменную
+const article = {
     id: '1',
-    title: 'Javascript news ',
-    subtitle: 'Что нового в JS за 2023 год?',
+    title: 'Javascript news asfasjf asfjkask f',
+    subtitle: 'Что нового в JS за 2022 год?',
     img: 'https://teknotower.com/wp-content/uploads/2020/11/js.png',
     views: 1022,
     createdAt: '26.02.2022',

@@ -20,7 +20,10 @@ declare const __IS_DEV__: boolean;
 declare const __API__: string;
 declare const __PROJECT__: 'storybook' | 'frontend' | 'jest';
 
-// Заменили стандартный ТС DeepPartial на наш кастомный из гугла  7 мин 40 видео
 type DeepPartial<T> = T extends object ? {
     [P in keyof T]?: DeepPartial<T[P]>;
 } : T;
+
+type OptionalRecord<K extends keyof any, T> = {
+    [P in K]?: T;
+};

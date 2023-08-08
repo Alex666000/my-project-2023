@@ -7,7 +7,7 @@ import cls from './Page.module.scss';
 
 interface PageProps {
     className?: string;
-    children: ReactNode; // др компонент который заворачиваем в Page
+    children: ReactNode;
     onScrollEnd?: () => void;
 }
 
@@ -16,7 +16,7 @@ export const Page = memo((props: PageProps) => {
     const wrapperRef = useRef() as MutableRefObject<HTMLDivElement>;
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>;
 
-    useInfiniteScroll({ // следим за скроллом
+    useInfiniteScroll({
         triggerRef,
         wrapperRef,
         callback: onScrollEnd,
@@ -32,6 +32,3 @@ export const Page = memo((props: PageProps) => {
         </section>
     );
 });
-/*
-Все существующие страницы в Page обернем - вместо  корневого блока div используем Page
- */
